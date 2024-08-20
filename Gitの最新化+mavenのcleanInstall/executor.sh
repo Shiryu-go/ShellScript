@@ -3,12 +3,11 @@
 # 設定ファイルの読み込み
 source config.sh
 
-# 最大並列処理数
-MAX_PARALLEL=4
-
 # ログ関数
 log() {
-    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1"
+    local message="[$(date '+%Y-%m-%d %H:%M:%S')] $1"
+    echo "$message"
+    echo "$message" >> "$LOG_FILE"
 }
 
 # リポジトリ処理関数
@@ -61,6 +60,8 @@ process_repos_parallel() {
 
 # メイン処理
 main() {
+    log "ビルドスクリプトの実行を開始します。"
+
     local git_errors=0
     local mvn_errors=0
 
